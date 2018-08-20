@@ -120,7 +120,7 @@ if (program.tags) {
 }
 
 // add strict option (fail if there are any undefined or pending steps)
-process.argv.push('--strict');
+//process.argv.push('--strict');
 
 //
 // execute cucumber
