@@ -15,7 +15,7 @@ function collectPaths(value, paths) {
 
 function coerceInt(value, defaultValue) {
 
-    var int = parseInt(value);
+    let int = parseInt(value);
 
     if (typeof int === 'number') return int;
 
@@ -125,13 +125,13 @@ process.argv.push('-S');
 //
 // execute cucumber
 //
-var cucumberCli = cucumber.Cli(process.argv);
+const cucumberCli = new cucumber.Cli(process.argv);
 
 global.cucumber = cucumber;
 
 cucumberCli.run(function (succeeded) {
 
-    var code = succeeded ? 0 : 1;
+    let code = succeeded ? 0 : 1;
 
     function exitNow() {
         process.exit(code);
