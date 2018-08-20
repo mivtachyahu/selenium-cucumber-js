@@ -126,9 +126,9 @@ process.argv.push('-S');
 // execute cucumber
 //
 const cucumberCli = new cucumber.Cli(process.argv);
-
+console.log('129');
 global.cucumber = cucumber;
-
+console.log('131');
 cucumberCli.run(function (succeeded) {
 
     let code = succeeded ? 0 : 1;
