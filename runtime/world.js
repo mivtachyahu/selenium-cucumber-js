@@ -227,7 +227,7 @@ module.exports = function () {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
                 // firefox quits automatically on driver.close on last window
-                return driver.close().then(if (!(driver instanceOf FireFoxDriver)) {function () {
+                return driver.close().then(if (!(driver instanceof FireFoxDriver)) {function () {
                     return driver.quit();}
                 })
                 .then(function() {
@@ -243,7 +243,7 @@ module.exports = function () {
         }
         
         // firefox quits automatically on driver.close on last window
-        return driver.close().then(if (!(driver instanceOf FireFoxDriver)) { function () {
+        return driver.close().then(if (!(driver instanceof FireFoxDriver)) { function () {
             return driver.quit(); }
         })
     });
