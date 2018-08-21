@@ -226,17 +226,25 @@ module.exports = function () {
             return driver.takeScreenshot().then(function (screenShot) {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
+                // firefox quits automatically on driver.close on last window
+                return driver.close().then(if (!(driver instanceOf FireFoxDriver)) {function () {
+                    return driver.quit();}
+                })
+                .then(function() {
 
-                return driver.close().then(function() {
                     if (eyes) {
                         // If the test was aborted before eyes.close was called ends the test as aborted.
                         return eyes.abortIfNotClosed();
                     }
+
                     return Promise.resolve();
                 });
             });
         }
-
-        return driver.close()
+        
+        // firefox quits automatically on driver.close on last window
+        return driver.close().then(if (!(driver instanceOf FireFoxDriver)) { function () {
+            return driver.quit(); }
+        })
     });
 };
