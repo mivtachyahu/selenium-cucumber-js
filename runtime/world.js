@@ -219,23 +219,16 @@ module.exports = function () {
 
     // executed after each scenario (always closes the browser to ensure fresh tests)
     this.After(function (scenario) {
+        console.log(browserName);
         if (scenario.isFailed() && !global.noScreenshot) {
 
             // add a screenshot to the error report
             return driver.takeScreenshot().then(function (screenShot) {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
-                // firefox quits automatically on driver.close on last window
-                return driver.getCapabilities().then(function (c) {
-                    let browserName = c.get('browserName');
-                    console.log(browserName);
-                    if (browserName === 'firefox') {
-                        return driver.close();
-                    }
-                    else {
-                        driver.close().then(function () {
-                            return driver.quit();
-                    })
+
+                return driver.close().then(function () {
+                    return driver.quit();
                 })
                 .then(function() {
 
@@ -248,18 +241,9 @@ module.exports = function () {
                 });
             });
         }
-        
-        // firefox quits automatically on driver.close on last window
-        return driver.getCapabilities().then(function (c) {
-            let browserName = c.get('browserName');
-            console.log(browserName);
-            if (browserName === 'firefox') {
-                return driver.close();
-            }
-            else {
-                driver.close().then(function () {
-                    return driver.quit();
-            })
+
+        return driver.close().then(function () {
+            return driver.quit();
         })
     });
 };
